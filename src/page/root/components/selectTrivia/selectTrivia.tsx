@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { DIFFICULTY } from "../../enumeration/difficulty.enum";
-import { Category, CategoryApiResponse } from "../../types";
+import { DIFFICULTY } from "../../../../enumeration";
+import { Category, CategoryApiResponse } from "../../../../types";
 
 type SelectTriviaProps = {
   onSelect: (category: Category, difficulty: DIFFICULTY) => void;

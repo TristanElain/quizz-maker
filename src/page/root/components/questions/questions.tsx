@@ -1,24 +1,23 @@
 import classnames from "classnames";
 import { useEffect, useState } from "react";
-import { DIFFICULTY } from "../../enumeration";
-import { Category, Question, QuestionApiResponse } from "../../types";
-import { shuffleArray } from "../../utils";
-import "./questions.css";
+import { Link } from "react-router-dom";
+import { DIFFICULTY } from "../../../../enumeration";
+import {
+  Answsers,
+  Category,
+  QuestionApiResponse,
+  QuestionWithShuffledAnswder,
+} from "../../../../types";
+import { shuffleArray } from "../../../../utils";
 
 type QuestionsProps = {
   category: Category;
   difficulty: DIFFICULTY;
 };
 
-type ShuffledAnswers = {
-  shuffledAnswers: string[];
-};
-
 export const Questions = ({ category, difficulty }: QuestionsProps) => {
-  const [questions, setQuestions] = useState<(Question & ShuffledAnswers)[]>(
-    []
-  );
-  const [answers, setAnswers] = useState<{ [key: number]: string }>({});
+  const [questions, setQuestions] = useState<QuestionWithShuffledAnswder[]>([]);
+  const [answers, setAnswers] = useState<Answsers>({});
   const [showSubmit, setShowSubmit] = useState<boolean>(false);
 
   useEffect(() => {
@@ -26,6 +25,7 @@ export const Questions = ({ category, difficulty }: QuestionsProps) => {
       `https://opentdb.com/api.php?amount=5&category=${category.id}&difficulty=${difficulty}&type=multiple`
     )
       .then((res): Promise<QuestionApiResponse> => res.json())
+      // TODO HANDLE RESPONSE CODE
       .then(({ results }) => {
         setQuestions(
           results.map((question) => ({
@@ -42,7 +42,8 @@ export const Questions = ({ category, difficulty }: QuestionsProps) => {
   useEffect(() => {
     setShowSubmit(
       () =>
-        questions && answers && questions.length === Object.keys(answers).length
+        (questions ?? []).length > 0 &&
+        questions.length === Object.keys(answers).length
     );
   }, [setShowSubmit, answers, questions]);
 
@@ -54,8 +55,9 @@ export const Questions = ({ category, difficulty }: QuestionsProps) => {
     <div>
       {questions?.map(({ question, shuffledAnswers }, index) => {
         return (
-          <div>
-            <p>{question}</p>
+          <div key={question}>
+            {/* TODO find a more secure way */}
+            <p dangerouslySetInnerHTML={{ __html: question }}></p>
             <div>
               {shuffledAnswers.map((answer) => (
                 <button
@@ -73,7 +75,11 @@ export const Questions = ({ category, difficulty }: QuestionsProps) => {
         );
       })}
       <br />
-      {showSubmit && <button className="submit">Sumbit</button>}
+      {showSubmit && (
+        <Link className="button" to={"results"} state={{ questions, answers }}>
+          Sumbit
+        </Link>
+      )}
     </div>
   );
 };

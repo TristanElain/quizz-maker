@@ -54,6 +54,65 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
+.answser {
+  border-color: darkcyan;
+  background-color: white;
+  color: black;
+}
+
+.answser.selected {
+  background-color: darkcyan;
+  color: white;
+}
+
+.answser.correct {
+  background-color: green;
+  color: white;
+}
+
+.answser.incorrect {
+  background-color: red;
+  color: white;
+}
+
+.button {
+  display: inline-block;
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+  color: white;
+}
+
+.button:hover {
+  border-color: #646cff;
+}
+.sub:focus:focus,
+.button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.red {
+  background-color: red;
+  color: white;
+}
+
+.yellow {
+  background-color: yellow;
+  color: black;
+}
+
+.green {
+  background-color: green;
+  color: white;
+}
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
@@ -63,6 +122,9 @@ button:focus-visible {
     color: #747bff;
   }
   button {
+    background-color: #f9f9f9;
+  }
+  .button {
     background-color: #f9f9f9;
   }
 }
