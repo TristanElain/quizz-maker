@@ -2,7 +2,11 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { DIFFICULTY } from "../../enumeration/difficulty.enum";
 import { Category, CategoryApiResponse } from "../../types";
 
-export const SelectTrivia = () => {
+type SelectTriviaProps = {
+  onSelect: (category: Category, difficulty: DIFFICULTY) => void;
+};
+
+export const SelectTrivia = ({ onSelect }: SelectTriviaProps) => {
   const [categories, setCategories] = useState<Category[]>([]);
 
   const [selectedCategory, setSelectedCategory] = useState<Category>();
@@ -31,8 +35,9 @@ export const SelectTrivia = () => {
   };
 
   const onSubmit = () => {
-    console.log("category", selectedCategory);
-    console.log("difficulty", selectedDifficulty);
+    if (selectedCategory && selectedDifficulty) {
+      onSelect(selectedCategory, selectedDifficulty);
+    }
   };
 
   return (

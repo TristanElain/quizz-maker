@@ -1,0 +1,14 @@
+.answser {
+  border-color: darkcyan;
+  background-color: white;
+  color: black;
+}
+
+.answser.selected {
+  background-color: darkcyan;
+  color: white;
+}
+
+.submit {
+  width: 100%;
+}
